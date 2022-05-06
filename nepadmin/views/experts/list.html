@@ -1,0 +1,51 @@
+<div class="layui-fluid" id="table-box" lay-title="专家评审列表">
+    <div class="layui-card">
+        <div class="layui-card-body nepadmin-table-full">
+            <table id="id-table" lay-filter="filter-table"></table>
+            <script type="text/html" id="currentTableBar">
+            <a  lay-event="review">评审</a>
+        </script>
+        </div>
+    </div>
+</div>
+<script>
+    console.log("layui: ", layui);
+    layui.use("table", function () {
+        var table = layui.table;
+        //第一个实例
+        table.render({
+            elem: "#id-table",
+            api: "getExpertReview", //数据接口
+            page: true, //开启分页
+            cols: [
+                [
+                    //表头
+                    { title: '', type: 'checkbox', width: 60 },
+                    { field: "", title: "序号", type: "numbers" },
+                    { field: "projectName", title: "项目名称" },
+                    { field: "applicationUnit", title: "申请单位" },
+                    { field: "startTime", title: "开始时间" },
+                    { field: "endTime", title: "结束时间" },
+                    { field: "leader", title: "项目负责人" },
+                    { field: "applyDate", title: "申请日期" },
+                    { field: "projectStaus", title: "项目状态" },
+                    { title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center" }
+                ],
+            ],
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(filter-table)', function (obj) {
+            console.log('checkbox', obj)
+        });
+
+        // 绑定事件
+        table.on('tool(filter-table)', function (obj) {
+            console.log('tool', obj); //当前行的一些常用操作集合
+            if (obj.event === 'review') {   // 监听添加操作
+                console.log('评审');
+
+            }
+        });
+    });
+</script>

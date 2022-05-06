@@ -6,6 +6,14 @@
 		"icon": "layui-icon-home",
 		"href": "/"
 	},{
+		"title":"专家",
+		"icon": "layui-icon-unorderedlist",
+		"childs":[{
+			"title": "专家评审列表",
+			"href":"/experts/list"
+		}]
+	},
+    {
 		"title":"列表页",
 		"icon": "layui-icon-unorderedlist",
 		"childs":[{
@@ -15,7 +23,8 @@
 			"title": "卡片列表",
 			"href":"/list/card"
 		}]
-	},{
+	},
+    {
 		"title":"详情页",
 		"icon": "layui-icon-container",
 		"childs":[{

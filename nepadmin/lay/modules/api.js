@@ -1,8 +1,9 @@
 //请求URL
 layui.define([],function(exports){
     exports('api',{
-        login:'json/login.js',
-        getMenu:'json/menu.js',
-        getGoods:'json/goods.js'
+        login:'json/login.json',
+        getMenu:'json/menu.json',
+        getGoods:'json/goods.json',
+        getExpertReview:'json/expert-review-list.json'
     });
 })
