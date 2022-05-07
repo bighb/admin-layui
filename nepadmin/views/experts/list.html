@@ -135,14 +135,14 @@
         //监听表格复选框选择
         table.on('checkbox(filter-table)', function (obj) {
             console.log('checkbox', obj)
+            layer.msg('勾选');
         });
 
         // 绑定事件
         table.on('tool(filter-table)', function (obj) {
             console.log('tool', obj); //当前行的一些常用操作集合
             if (obj.event === 'review') {   // 监听添加操作
-                console.log('评审');
-
+                layer.msg('评审');
             }
         });
 

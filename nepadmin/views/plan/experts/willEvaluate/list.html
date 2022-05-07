@@ -1,0 +1,85 @@
+<div class="layui-fluid" id="table-box" lay-title="专家评审列表">
+    <!-- 表格操作区域开始 -->
+    <div class="layui-card">
+        <div class="layui-card-body nepadmin-table-full">
+            <div class="layui-btn-container nepadmin-pad-t10 nepadmin-pad-l10">
+                <div class="layui-btn" lay-event="submit">提交</div>
+            </div>
+            <table id="list-table" lay-filter="list-table"></table>
+        </div>
+    </div>
+    <!-- 表格操作区结束 -->
+    <div class="layui-card">
+        <div class="layui-card-body nepadmin-table-full">
+            <table id="id-table" lay-filter="filter-table"></table>
+            <script type="text/html" id="currentTableBar">
+            <a  lay-event="handleReview">评审</a>
+        </script>
+        </div>
+    </div>
+    <div class="layui-card">
+        <div class="layui-card-body nepadmin-table-full">
+            <table id="id-table" lay-filter="filter-table"></table>
+            <script type="text/html" id="detail">
+            <a  lay-event="handleDetail">查看</a>
+        </script>
+        </div>
+    </div>
+</div>
+<script>
+    console.log("layui: ", layui);
+    layui.use(["table", "laydate", "form", "admin"], function () {
+        var form = layui.form
+            , table = layui.table
+            , admin = layui.admin;
+        /**
+          * 初始化表单，要加上，不然刷新部分组件可能会不加载
+          */
+        form.render();
+
+        //第一个实例
+        table.render({
+            elem: "#id-table",
+            api: "expertTrial", //数据接口
+            page: true, //开启分页
+            cols: [
+                [
+                    //表头
+                    { title: "序号", type: "numbers" },
+                    { field: "applyDate", title: "申请年度" },
+                    { field: "projectNum", title: "项目编号" },
+                    { field: "projectName", title: "项目名称" },
+                    { field: "recommendedUnit", title: "推荐单位" },
+                    { field: "applicationUnit", title: "申请单位" },
+                    { field: "projectStatus", title: "项目状态" },
+                    { title: '网评详情', minWidth: 150, toolbar: '#detail', align: "center" },
+                    { title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center" }
+                ],
+            ],
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(filter-table)', function (obj) {
+            console.log('checkbox', obj)
+            layer.msg('勾选');
+        });
+
+        // 绑定事件
+        table.on('tool(filter-table)', function (obj) {
+            console.log('tool', obj); //当前行的一些常用操作集合
+            if (obj.event === 'handleReview') {   // 监听添加操作
+                layer.msg('评审');
+                admin.navigate('/plan/experts/willEvaluate/review')
+            } else if (obj.event === 'handleDetail') {
+                layer.msg('查看详情');
+            }
+        });
+
+        //监听提交
+        form.on('submit(formSearch)', function (data) {
+            console.log('data: ', data);
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+</script>
