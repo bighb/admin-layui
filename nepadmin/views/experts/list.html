@@ -1,4 +1,89 @@
 <div class="layui-fluid" id="table-box" lay-title="专家评审列表">
+    <div class="layui-card nepadmin-pad-t10">
+        <form class="layui-form" action="">
+            <div class="layui-row">
+                <div class="layui-col-md4">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">项目名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="projectName" autocomplete="off" class="layui-input"
+                                    placeholder="请输入">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">申请单位</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="applicationUnit" autocomplete="off" class="layui-input"
+                                    placeholder="请输入">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">起止年份</label>
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="startYear" placeholder="请选择日期范围">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-md4">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">项目负责人</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="leader" autocomplete="off" class="layui-input"
+                                    placeholder="请输入">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">项目状态</label>
+                            <div class="layui-input-inline">
+                                <select name="projectStatus">
+                                    <option value=""></option>
+                                    <option value="0">已完成</option>
+                                    <option value="1">已关闭</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md4">
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formSearch">查询</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 搜索结束 -->
+    <!-- 表格操作区域开始 -->
+    <div class="layui-card">
+        <div class="layui-card-body nepadmin-table-full">
+            <div class="layui-btn-container nepadmin-pad-t10 nepadmin-pad-l10">
+                <div class="layui-btn layui-btn-sm">新建</div>
+                <div class="layui-btn layui-btn-sm layui-btn-primary table-action" data-type="del">删除</div>
+            </div>
+            <table id="list-table" lay-filter="list-table"></table>
+        </div>
+    </div>
+    <!-- 表格操作区结束 -->
     <div class="layui-card">
         <div class="layui-card-body nepadmin-table-full">
             <table id="id-table" lay-filter="filter-table"></table>
@@ -10,8 +95,15 @@
 </div>
 <script>
     console.log("layui: ", layui);
-    layui.use("table", function () {
-        var table = layui.table;
+    layui.use(["table", "laydate", "form"], function () {
+        var form = layui.form
+            , table = layui.table
+            , laydate = layui.laydate;
+        /**
+          * 初始化表单，要加上，不然刷新部分组件可能会不加载
+          */
+        form.render();
+
         //第一个实例
         table.render({
             elem: "#id-table",
@@ -28,12 +120,18 @@
                     { field: "endTime", title: "结束时间" },
                     { field: "leader", title: "项目负责人" },
                     { field: "applyDate", title: "申请日期" },
-                    { field: "projectStaus", title: "项目状态" },
+                    { field: "projectStatus", title: "项目状态" },
                     { title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center" }
                 ],
             ],
         });
 
+        //年范围
+        laydate.render({
+            elem: '#startYear'
+            , type: 'year'
+            , range: true
+        })
         //监听表格复选框选择
         table.on('checkbox(filter-table)', function (obj) {
             console.log('checkbox', obj)
@@ -46,6 +144,13 @@
                 console.log('评审');
 
             }
+        });
+
+        //监听提交
+        form.on('submit(formSearch)', function (data) {
+            console.log('data: ', data);
+            layer.msg(JSON.stringify(data.field));
+            return false;
         });
     });
 </script>

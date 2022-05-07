@@ -11,7 +11,7 @@
             "leader": "赵四",
             "ppt": "http",
             "applyDate": "2022-03-23",
-            "projectStaus": "待提交"
+            "projectStatus": "待提交"
         },
         {
             "projectName": "研究二期",
@@ -21,7 +21,7 @@
             "leader": "张三",
             "ppt": "http",
             "applyDate": "2022-03-23",
-            "projectStaus": "已完成"
+            "projectStatus": "已完成"
         }
     ]
 }
