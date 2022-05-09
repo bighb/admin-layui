@@ -1,20 +1,14 @@
-<div class="layui-fluid" id="table-box" lay-title="专家评审列表">
+<div class="layui-fluid" id="table-box" lay-title="专家形审">
     <!-- 表格操作区域开始 -->
     <div class="layui-card">
         <div class="layui-card-body nepadmin-table-full">
             <div class="layui-btn-container nepadmin-pad-t10 nepadmin-pad-l10">
                 <div class="layui-btn" lay-event="submit">提交</div>
             </div>
-            <table id="list-table" lay-filter="list-table"></table>
-        </div>
-    </div>
-    <!-- 表格操作区结束 -->
-    <div class="layui-card">
-        <div class="layui-card-body nepadmin-table-full">
-            <table id="id-table" lay-filter="filter-table"></table>
-            <script type="text/html" id="currentTableBar">
-            <a  lay-event="review">评审</a>
-        </script>
+            <table id="trial-table" lay-filter="trial-table"></table>
+            <script type="text/html" id="handleReview">
+                <a  lay-event="handleReview">评审</a>
+            </script>
         </div>
     </div>
 </div>
@@ -31,7 +25,7 @@
 
         //第一个实例
         table.render({
-            elem: "#id-table",
+            elem: "#trial-table",
             api: "expertTrial", //数据接口
             page: true, //开启分页
             cols: [
@@ -45,28 +39,16 @@
                     { field: "applicationUnit", title: "申请单位" },
                     { field: "conclusion", title: "评审结论" },
                     { field: "projectStatus", title: "项目状态" },
-                    { title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center" }
+                    { title: '操作', minWidth: 150, toolbar: '#handleReview', align: "center" }
                 ],
             ],
         });
 
-        //年范围
-        laydate.render({
-            elem: '#startYear'
-            , type: 'year'
-            , range: true
-        })
-        //监听表格复选框选择
-        table.on('checkbox(filter-table)', function (obj) {
-            console.log('checkbox', obj)
-            layer.msg('勾选');
-        });
-
-        // 绑定事件
-        table.on('tool(filter-table)', function (obj) {
-            console.log('tool', obj); //当前行的一些常用操作集合
-            if (obj.event === 'review') {   // 监听添加操作
-                layer.msg('评审');
+        // 绑定事件 注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值" lay-filter必须唯一 不然会出现事件绑定重复错乱
+        table.on('tool(trial-table)', function (obj) {
+            console.log('tool trial', obj); //当前行的一些常用操作集合
+            if (obj.event === 'handleReview') {   // 监听添加操作
+                layer.msg('形审评审');
             }
         });
 

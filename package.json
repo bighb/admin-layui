@@ -1,0 +1,17 @@
+{
+    "name": "admin-layui",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "gulp"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "gulp": "^4.0.2",
+        "gulp-connect": "^5.7.0",
+        "http-proxy-middleware": "0.19.1"
+    }
+}
