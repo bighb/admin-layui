@@ -9,6 +9,9 @@ git  clone  https://github.com/bighb/admin-layui.git
 ```
 
 ```
-准备一个web服务器，以根目录`index.html`为入口运行即可
+npm install
+```
+```
+npm start
 ```
 
